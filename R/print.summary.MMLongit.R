@@ -9,9 +9,9 @@ print.summary.MMLongit <- function(x,...) {
   cat("Association Parameters:\n")
   printCoefmat(x$assoc.table,signif.stars = FALSE)
   cat('\n')
-  cat('Number of clusters:            ',x$control[5],'\n')
-  cat('Maximum cluster size:          ',x$control[6],'\n') 
-  cat('Convergence status (nlm code): ',x$control[3],'\n')
-  cat('Number of iterations:          ',x$control[4])
+  cat('Number of clusters:            ',x$control[3],'\n')
+  cat('Maximum cluster size:          ',x$control[4],'\n') 
+  cat('Convergence status (nlm code): ',x$control[1],'\n')
+  cat('Number of iterations:          ',x$control[2])
   cat('\n')
 }
