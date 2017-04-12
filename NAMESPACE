@@ -1,4 +1,4 @@
-useDynLib(MMLB, DeconvolveGH_CALL, LogLScoreCalc_CALL)
+useDynLib(MM, DeconvolveGH_CALL, LogLScoreCalc_CALL)
 import(fastGHQuad, MASS)
 export(mm, MMLongit)
 S3method(summary, MMLongit)
