@@ -1,5 +1,5 @@
 GenBinaryY <- function(mean.formula, lv.formula = NULL, t.formula = NULL,
-                       beta=NULL, alpha=NULL, gamma = NULL, id, data, 
+                       beta = NULL, sigma = NULL, gamma = NULL, id, data, 
                        q = 10, Yname='Y')
 {
   if (is.null(lv.formula) & is.null(t.formula)) {
@@ -8,8 +8,8 @@ GenBinaryY <- function(mean.formula, lv.formula = NULL, t.formula = NULL,
   if(is.null(beta)) {
     stop('Specify beta values for marginal mean model.')
   }
-  if (is.null(alpha) & is.null(gamma)) {
-    stop("Specify alpha and/or gamma values (both alpha and gamma arguments cannot be NULL).")
+  if (is.null(sigma) & is.null(gamma)) {
+    stop("Specify sigma and/or gamma values (both sigma and gamma arguments cannot be NULL).")
   }
   
   terms = unique(c(all.vars(mean.formula), all.vars(lv.formula), 
@@ -27,7 +27,7 @@ GenBinaryY <- function(mean.formula, lv.formula = NULL, t.formula = NULL,
   etai <- x %*% cbind(beta, NULL) 
   
   x.t = x.lv = matrix(0, ncol = 1, nrow = nrow(data))
-  alpha.tmp = gamma.tmp = 0 
+  sigma.tmp = gamma.tmp = 0 
   gam = sig = x.t
   
   if (!is.null(t.formula)) {
@@ -40,13 +40,13 @@ GenBinaryY <- function(mean.formula, lv.formula = NULL, t.formula = NULL,
     gam = x.t %*% cbind(gamma.tmp, NULL)
   }
   if (!is.null(lv.formula)) {
-    if(is.null(alpha)) stop('Specify both lv.formula and alpha')
+    if(is.null(sigma)) stop('Specify both lv.formula and sigma')
     x.lv = model.matrix(lv.formula, model.frame(lv.formula, data))
-    alpha.tmp = alpha
-    if(ncol(x.lv) != length(alpha.tmp)) {
-      stop('Issue with alpha and design matrix associated with association model.')
+    sigma.tmp = sigma
+    if(ncol(x.lv) != length(sigma.tmp)) {
+      stop('Issue with sigma and design matrix associated with association model.')
     }
-    sig = x.lv %*% cbind(alpha.tmp, NULL)
+    sig = x.lv %*% cbind(sigma.tmp, NULL)
   }
   
   lps   = data.frame(id, etai, sig, gam)
