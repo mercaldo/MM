@@ -21,7 +21,7 @@ GenBinaryY(mean.formula, lv.formula = NULL, t.formula = NULL,
   \item{id}{ a vector of cluster identifiers (it should be the same length nrow(data)).}
   \item{data}{ a required data frame }
   \item{q}{a scalar to denote the number of quadrature points used for GH numerical integration.}
-  \item{Yname}{a character string denoted name of new binary variable; default=Y}
+  \item{Yname}{a character string of the name of new binary variable; default=Y}
 }
 
 \value{
