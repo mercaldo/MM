@@ -4,11 +4,11 @@
 Generate binary response data.
 }
 \description{
-Generate binary response data for a given marginal mean and association model.  
+Generate binary response data for a given marginal mean and association model. Association models include those with a random intercept and/or a first-order time lag. 
 }
 \usage{
 GenBinaryY(mean.formula, lv.formula = NULL, t.formula = NULL, 
-    beta = NULL, alpha = NULL, gamma = NULL, id, data, q = 10, 
+    beta = NULL, sigma = NULL, gamma = NULL, id, data, q = 10, 
     Yname = "Y")
 }
 \arguments{
@@ -16,7 +16,7 @@ GenBinaryY(mean.formula, lv.formula = NULL, t.formula = NULL,
   \item{lv.formula}{ Latent variable model formula (right hand side only) }
   \item{t.formula}{Transition model formula (right hand side only) }
   \item{beta}{ a vector of values for mean.formula.}
-  \item{alpha}{ a vector of values for the latent variable portion of the association model (else NULL).}
+  \item{sigma}{ a vector of values for the latent variable portion of the association model (else NULL).}
   \item{gamma}{ a vector of values for the transition porition of the association model (else NULL).}
   \item{id}{ a vector of cluster identifiers (it should be the same length nrow(data)).}
   \item{data}{ a required data frame }
@@ -41,7 +41,7 @@ data   = data.frame(id, time, Xe)
 data   = data[order(data$id, data$time),]
 
 newdata = GenBinaryY(mean.formula=~time*Xe, lv.formula=~1, t.formula=~1, 
-          beta=c(-2.5, .25, .25, .1), alpha=1, gamma=1, id=id, data=data, q=20, 
+          beta=c(-2.5, .25, .25, .1), sigma=1, gamma=1, id=id, data=data, q=20, 
           Yname = "binY") 
 
 mod_mtlv = mm(binY~time*Xe,lv.formula=~1, t.formula=~1, data=newdata,id=id, q=20)
