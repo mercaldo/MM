@@ -1,9 +1,4 @@
-Etai2Deltai <-function(etai, gamma, sigma, q.points, Z, W) { 
-  
-  expit <- function(aa) { 
-    exp_aa <- exp(aa)
-    exp_aa/(1+exp_all)
-  }
+Etai2Deltai <-function(etai, gamma, sigma, Z, W) { 
   
   n     <- length(etai)
   
