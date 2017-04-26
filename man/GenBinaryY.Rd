@@ -25,7 +25,8 @@ GenBinaryY(mean.formula, lv.formula = NULL, t.formula = NULL,
 }
 
 \value{
-This function returns the data object augmented with a binary response vector named Yname. }
+This function returns the data object augmented with a binary response vector named Yname. 
+}
 
 \author{ Jonathan Schildcrout and Nathaniel Mercaldo }
 
@@ -47,4 +48,4 @@ newdata = GenBinaryY(mean.formula=~time*Xe, lv.formula=~1, t.formula=~1,
 mod_mtlv = mm(binY~time*Xe,lv.formula=~1, t.formula=~1, data=newdata,id=id, q=20)
 summary(mod_mtlv)
 }
-
+}
