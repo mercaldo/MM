@@ -1,19 +1,21 @@
-mm <- function(mean.formula, lv.formula = NULL, t.formula = NULL, id, data, inits = NULL,
-               offset = NULL, q = 10, step.max = 1, step.tol = 1e-06, hess.eps = 1e-07, 
+mm <- function(mean.formula, lv.formula = NULL, t.formula = NULL, id, data, subset, inits = NULL,
+               offset = NULL, q = 10, na.action=na.omit, step.max = 1, step.tol = 1e-06, hess.eps = 1e-07, 
                verbose = FALSE, iter.lim=100) {
   
   if(is.null(lv.formula) & is.null(t.formula)) {stop('Specify association model (both lv.formula and t.formula arguments cannot be NULL.')}
   
   terms = unique( c(all.vars(mean.formula), all.vars(lv.formula), all.vars(t.formula), 
                     as.character(substitute(id))) )
-  data  = data[,terms]
-  if(any(is.na(data))) data = na.omit(data)
-  id    = data$id    = data[ , as.character(substitute(id)) ]
+  data    = data[,terms]
+  data$id = data[, as.character(substitute(id))]
+  
+  if(!missing(subset)) data = data[ eval(substitute(subset), data), ]
+  data = na.action(data)
+  id   = data$id 
   
   mean.f = model.frame(mean.formula, data)
   mean.t = attr(mean.f, "terms")
   y  = model.response(mean.f,'numeric') 
-  uy = unique(y)
   x  = model.matrix(mean.formula,mean.f)
   
   x.t = x.lv = matrix(0, ncol=1, nrow=length(y))
