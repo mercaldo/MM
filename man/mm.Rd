@@ -7,19 +7,21 @@ Fit Marginalized Transition and/or Latent Variable Models
 Fit a marginalzed transition and/or latent variable models (mTLV) as described by Schildcrout and Heagerty 2007.  
 }
 \usage{
-mm(mean.formula, lv.formula = NULL, t.formula = NULL, id, data,
-   inits = NULL, offset = 0, q = 10, step.max = 1, step.tol = 1e-06, hess.eps = 1e-07, 
-   verbose = FALSE,iter.lim=100)
+mm(mean.formula, lv.formula = NULL, t.formula = NULL, id, data, subset,
+   inits = NULL, offset = 0, q = 10, na.action=na.omit, step.max = 1, 
+   step.tol = 1e-06, hess.eps = 1e-07, verbose = FALSE,iter.lim=100)
 }
 \arguments{
   \item{mean.formula}{ Mean model formula in which a binary variable is regressed on covariates.}
   \item{lv.formula}{ Latent variable model formula (right hand side only) }
   \item{t.formula}{Transition model formula (right hand side only) }
   \item{id}{ a vector of cluster identifiers (it should be the same length nrow(data)).}
-  \item{data}{ a required data frame }
+  \item{data}{ a required data frame (if not a data.frame, then it will be coerced to a data.frame) }
+  \item{subset}{ expression indentifying subset of observations should be used in the model fitting process }
   \item{inits}{an optional vector for initial values for marginal mean parameters and all dependence parameters. If NULL, initial values will be automatically generated.}
   \item{offset}{an optional offset term.}
   \item{q}{a scalar to denote the number of quadrature points used for GH numerical integration.}
+  \item{na.action} {function used to hangle NAs. Default is na.omit. }
   \item{step.max}{a scalar.}
   \item{step.tol}{a scalar.}
   \item{hess.eps}{a scalar.}
