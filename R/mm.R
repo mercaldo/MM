@@ -4,6 +4,10 @@ mm <- function(mean.formula, lv.formula = NULL, t.formula = NULL, id, data, subs
   
   if(is.null(lv.formula) & is.null(t.formula)) {stop('Specify association model (both lv.formula and t.formula arguments cannot be NULL.')}
   
+  if(!is.data.frame(data)) {
+    warning('data argument converted to data.frame using as.data.frame().')
+    data = as.data.frame(data)
+  }
   terms = unique( c(all.vars(mean.formula), all.vars(lv.formula), all.vars(t.formula), 
                     as.character(substitute(id))) )
   data    = data[,terms]
